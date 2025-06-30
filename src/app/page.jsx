@@ -1,8 +1,13 @@
-import Login from "@/components/header/Login";
-import Logo from "@/components/header/Logo";
+import HeroSection from "@/components/home/heroSection";
+import PostCard from "@/components/home/PostCard";
 
 const HomePage = () => {
-  return <div>home page</div>;
+  return (
+    <div>
+      <HeroSection />
+      <PostCard />
+    </div>
+  );
 };
 
 export default HomePage;
