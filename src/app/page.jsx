@@ -1,8 +1,8 @@
+import Login from "@/components/header/Login";
+import Logo from "@/components/header/Logo";
 
-export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className="text-4xl font-bold mb-8">Welcome to My Next.js App</h1>
-    </main>
-  );
-}
+const HomePage = () => {
+  return <div>home page</div>;
+};
+
+export default HomePage;
