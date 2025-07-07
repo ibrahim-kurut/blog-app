@@ -2,11 +2,12 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import bcrypt from "bcryptjs";
+import { useRouter } from "next/navigation";
 const RegisterPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const router = useRouter();
   const handleSubmit = (e) => {
     e.preventDefault();
     // validation values
@@ -23,7 +24,15 @@ const RegisterPage = () => {
     const hashedPassword = bcrypt.hashSync(password, salt);
     const fd = { username, email, password: hashedPassword };
     //! TODO send the data to the server for login
-    toast.success("Login successful");
+    try {
+      toast.success("Login successful");
+      // Redirect to profile page after successful login
+      setTimeout(() => {
+        router.push("/login");
+      }, 2000);
+    } catch (error) {
+      toast.error("Login failed, please try again");
+    }
     console.log(fd);
   };
   return (

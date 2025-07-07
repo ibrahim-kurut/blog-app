@@ -3,10 +3,13 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import bcrypt from "bcryptjs";
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
+
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,13 +19,22 @@ const LoginPage = () => {
     if (password.length < 6)
       return toast.error("Password must be at least 6 characters long");
 
-    // hashed password example (not needed for login, but shown for completeness)
+    // hashed password example
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(password, salt);
+
     const fd = { email, password: hashedPassword };
     //! TODO send the data to the server for login
-    toast.success("Login successful");
-    console.log(fd);
+    try {
+      toast.success("Login successful");
+      // Redirect to profile page after successful login
+      setTimeout(() => {
+        router.push("/profile");
+      }, 3000);
+      console.log(fd);
+    } catch (error) {
+      toast.error("Login failed, please try again");
+    }
   };
 
   return (
