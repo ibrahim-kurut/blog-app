@@ -1,6 +1,36 @@
+"use client";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import bcrypt from "bcryptjs";
 const RegisterPage = () => {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // validation values
+    if (username === "") return toast.error("Username is required");
+    if (username.length < 2)
+      return toast.error("Password must be at least 2 characters long");
+    if (email === "") return toast.error("Email is required");
+    if (password === "") return toast.error("Password is required");
+    if (password.length < 6)
+      return toast.error("Password must be at least 6 characters long");
+
+    // hashed password example (not needed for login, but shown for completeness)
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(password, salt);
+    const fd = { username, email, password: hashedPassword };
+    //! TODO send the data to the server for login
+    toast.success("Login successful");
+    console.log(fd);
+  };
   return (
-    <form className="bg-gray-100 w-1/2 mx-auto mt-10 space-y-4 border border-gray-200 p-6 rounded-lg shadow-md">
+    <form
+      onSubmit={handleSubmit}
+      className="bg-gray-100 w-1/2 mx-auto mt-10 space-y-4 border border-gray-200 p-6 rounded-lg shadow-md"
+    >
       <h1 className="text-center capitalize text-2xl">Register Page</h1>
       <div>
         <label htmlFor="username">
@@ -9,6 +39,8 @@ const RegisterPage = () => {
           <input
             type="text"
             id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             placeholder="Enter your username"
             className="mt-1 w-full p-2 rounded border-gray-300 shadow-sm sm:text-sm"
           />
@@ -21,6 +53,8 @@ const RegisterPage = () => {
           <input
             type="email"
             id="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
             className="mt-1 w-full p-2 rounded border-gray-300 shadow-sm sm:text-sm"
           />
@@ -33,6 +67,8 @@ const RegisterPage = () => {
           <input
             type="Password"
             id="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your password"
             className="mt-1 w-full p-2 rounded border-gray-300 shadow-sm sm:text-sm"
           />
