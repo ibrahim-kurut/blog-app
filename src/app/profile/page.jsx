@@ -6,7 +6,8 @@ import { useState } from "react";
 
 const ProfilePage = () => {
   const [showUpdateModel, setShowUpdateModel] = useState(false);
-
+  const [name, setName] = useState("mehemt yapici");
+  const [email, setEmail] = useState("y@gmail.com");
   // handle update profile
   const handleUpdateProfile = () => {
     setShowUpdateModel(true);
@@ -24,8 +25,8 @@ const ProfilePage = () => {
             className="rounded-full mx-auto mb-4"
           />
           <div>
-            <h1 className="text-center text-2xl font-bold mb-2">John Doe</h1>
-            <h3 className="text-center font-bold mb-2">email@gmail.com</h3>
+            <h1 className="text-center text-2xl font-bold mb-2">{name}</h1>
+            <h3 className="text-center font-bold mb-2">{email}</h3>
           </div>
           {/* delete update profile */}
           <div className="flex justify-between items-center mt-4">
@@ -55,7 +56,13 @@ const ProfilePage = () => {
 
       {/* update profile model */}
       {showUpdateModel && (
-        <UpdateProfileModel setShowUpdateModel={setShowUpdateModel} />
+        <UpdateProfileModel
+          setShowUpdateModel={setShowUpdateModel}
+          name={name}
+          setName={setName}
+          email={email}
+          setEmail={setEmail}
+        />
       )}
     </div>
   );

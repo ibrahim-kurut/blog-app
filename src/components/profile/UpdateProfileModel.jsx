@@ -2,18 +2,19 @@
 
 import { useState } from "react";
 
-const UpdateProfileModel = ({ setShowUpdateModel }) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+const UpdateProfileModel = ({
+  setShowUpdateModel,
+  name,
+  setName,
+  email,
+  setEmail,
+}) => {
   const [image, setImage] = useState("");
 
   // handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log({ name, email, image });
-    setName("");
-    setEmail("");
-    setImage("");
     setTimeout(() => {
       setShowUpdateModel(false);
     }, 1500);
